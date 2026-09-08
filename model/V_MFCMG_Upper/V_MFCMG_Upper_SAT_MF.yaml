@@ -1,0 +1,78 @@
+version: {date: 20260727, name: 'V_MFCMG_Upper_SAT_MF'}
+config:
+  dnu: 0.1
+tags:
+  exp_base : "V_MFCMG_Upper"
+sources:
+  cmb: {source_type: blackbody, T: 2.725, emiss: 1.0}
+  atmosphere:
+    source_type: hdf5
+    file: 'atmos/atm_20201217.hdf5'
+    site: 'Atacama'
+    pwv: 750 #1000
+    elevation: 60
+optics_defaults: {temperature: 270.0, reflection: 0.0, scatter_frac: 0.0, spillover: 0.0, absorption: 0.0}
+optical_elements: 
+  forebaffle:   {obj_type: Bespoke, temperature: 50.0, spillover: [0.02,0.01]} # band dependant spill to forebaffle
+  window:       {obj_type: LossTangent, reflection: "{exp_base}/bands/optics/MF/Window_Reflection.txt", thickness: 0.010, index: 1.54, loss_tangent: 1.0E-4}
+  rtmli_abs:    {obj_type: Bespoke, temperature: 212, absorption: "{exp_base}/bands/optics/MF/Styrofoam_Absorption.txt"} # Thomas et al. 2026, Styrofoam 1-sigma upper bound on lt (non-detection, 5.9e-8) at Teff=212K
+  rtmli_scat:   {obj_type: Bespoke, temperature: 273, scatter_frac: "{exp_base}/bands/optics/MF/Styrofoam_ScatterFrac.txt"} # Thomas et al. 2026, Rayleigh+Mie scatter to warm forebaffle at 273K
+  aluminaf1:    {obj_type: LossTangent, temperature: 50.0, reflection: "{exp_base}/bands/optics/MF/AluminaF1_Reflection.txt", thickness: 0.005, index: 3.12, loss_tangent: 1.9E-4}
+  hwp:          {obj_type: Bespoke, temperature: 50.0, absorption: "{exp_base}/bands/optics/MF/HWP_Absorption.txt", reflection: "{exp_base}/bands/optics/MF/HWP_Reflection.txt"}
+  aluminaf2:    {obj_type: LossTangent, temperature: 6.0, reflection: "{exp_base}/bands/optics/MF/AluminaF2_Reflection.txt", thickness: 0.005, index: 3.12, loss_tangent: 1.9E-4}
+  #lyot:         {obj_type: ApertureStop, temperature: 0.8}
+  lyot:         {obj_type: Bespoke, temperature: 0.8, absorption: "{exp_base}/bands/optics/MF/aperture_absorption_upper.txt"} ## calculated from feedhorn beam sims 20260805
+  lens1:        {obj_type: LossTangent, temperature: 0.8, reflection: 0.006, thickness: 0.040, index: 3.36, loss_tangent: 0.2E-4}
+  lowpass1:     {obj_type: Bespoke, temperature: 0.8, absorption: "{exp_base}/bands/optics/MF/LowPass1_Absorption.txt", reflection: "{exp_base}/bands/optics/MF/LowPass1_Reflection.txt"}
+  lowpass2:     {obj_type: Bespoke, temperature: 0.8, absorption: "{exp_base}/bands/optics/MF/LowPass2_Absorption.txt", reflection: "{exp_base}/bands/optics/MF/LowPass2_Reflection.txt"}
+  lens2:        {obj_type: LossTangent, temperature: 0.8, reflection: 0.006, thickness: 0.042, index: 3.36, loss_tangent: 0.2E-4}
+  lens3:        {obj_type: LossTangent, temperature: 0.8, reflection: 0.006, thickness: 0.032, index: 3.36, loss_tangent: 0.2E-4}
+  lowpass3:     {obj_type: Bespoke, temperature: 0.26, absorption: "{exp_base}/bands/optics/MF/LowPass3_Absorption.txt", reflection: "{exp_base}/bands/optics/MF/LowPass3_Reflection.txt"}
+bolo_config:
+  waist_factor: 3.0
+  f_number: 1.27 ## Fred email says 1.27~1.47. Not used when using calculated version
+  N_polarizations: 1
+  AOmega_method: ModeCount
+  N_modes: 1
+  psat_method: specified
+  psat_factor: None
+  F_link_method: 'specified'
+  loopgain_method: 'specified'
+  G_dynamic_method: from_psat_beta
+  T_bath: 0.100
+  T_c: 0.159 # From 2311.05583: Tc = 166+/-7 mK
+  R_bolo:  0.00395  # From 2311.05583: Rn=7.5±0.4 mΩ. Rbolo=Rn*0.5
+  R_shunt: 0.0 # Set to zero in order to emulate BoloCalc behavior for Johnson noise (= 0)
+  yield: 0.8
+  beta: 2.7 # This is used to compute G_dynamic
+readout:
+  method: 'from_NEI'
+channels:
+  MF_1:
+    chnum: 0
+    F_link: 1.0
+    loopgain: 10000 # This is used to compute responsivity (to convert readout NEI to NEP) and Johnson noise;
+                    # A large value emulates BoloCalc behavior for readout NEP (= NEI x Vbolo/1.0) and Johnson noise (= 0)
+    readout_NEI: 45.e-12
+    nu_low: 60.0   # Detector band file min and max frequencies. The wavelength used to compute pixel F-lambda spacings for the
+    nu_high: 199.5 # correlation factor calculations is established by these bounds and not the band -3 dB edges as in BoloCalc
+    band_response : {method: bandfile, fname : "{exp_base}/bands/detectors/MF_1.txt"}
+    det_eff: 0.75 # From 2311.05583: 0.85 (upper IQR) adjusted for bandpass change by factor 0.884
+    psat: 4.6e-12 # From 2311.05583: Pb50(f090) = 2.9 +/- 0.6 pW. 2*(2.9-0.6)
+    horn_diameter: 5.15e-3 # Horn diameter and pixel spacing are the same variable in BoloCalc. These are
+    pixel_spacing: 5.3e-3 # used to compute the aperture efficiency and the detector correlation factors.
+    num_det_per_wafer: 860
+  MF_2:
+    chnum: 1
+    F_link: 1.0
+    loopgain: 10000 # This is used to compute responsivity (to convert readout NEI to NEP) and Johnson noise;
+                    # A large value emulates BoloCalc behavior for readout NEP (= NEI x Vbolo/1.0) and Johnson noise (= 0)
+    readout_NEI: 45.e-12
+    nu_low: 60.0   # Detector band file min and max frequencies. The wavelength used to compute pixel F-lambda spacings for the
+    nu_high: 199.5 # correlation factor calculations is established by these bounds and not the band -3 dB edges as in BoloCalc
+    band_response : {method: bandfile, fname : "{exp_base}/bands/detectors/MF_2.txt"}
+    det_eff: 0.75 # From 2311.05583: 0.59 (upper IQR) adjusted for bandpass change by factor 1.270
+    psat: 13.6e-12 # From 2311.05583: Pb50(f150) = 8.0 +/- 1.2 pW. 2*(8.0-1.2)
+    horn_diameter: 5.15e-3 # Horn diameter and pixel spacing are the same variable in BoloCalc. These are
+    pixel_spacing: 5.3e-3 # used to compute the aperture efficiency and the detector correlation factors.
+    num_det_per_wafer: 860

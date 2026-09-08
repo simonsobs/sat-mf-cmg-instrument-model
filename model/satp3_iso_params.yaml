@@ -1,0 +1,168 @@
+telescope:
+  bolo_config:
+    T_bath: 0.057
+  optical_elements: 
+    forebaffle: {temperature: 100} 
+    rtmli_scat: {temperature: 100}
+wafers:
+  mv5:
+    R_n: 0.0073
+    T_c: 0.173
+    yield: 0.77
+    psat_tbath : 0.1
+    MF_1:
+      det_eff: 0.6279593287537053
+      psat: 6.1e-12
+      kappa: 2382.0e-12
+      n: 3.3
+      G_dynamic: 139.0e-12 
+      NEP_dark: 1.3e-17
+      NEP_vib_shift: 1.2600000000000002e-19
+      pton_det_eff: 0.71
+    MF_2:
+      det_eff: 0.6096541588432078
+      psat: 1.02e-11
+      kappa: 9053.0e-12
+      n: 3.8
+      G_dynamic: 253.0e-12 
+      NEP_dark: 1.8e-17
+      NEP_vib_shift: 1.5e-19
+      pton_det_eff: 0.48
+  mv27:
+    R_n: 0.0082
+    T_c: 0.175
+    yield: 0.85
+    psat_tbath : 0.1
+    MF_1:
+      det_eff: 0.74293779739875
+      psat: 4.2e-12
+      kappa: 1154.0e-12
+      n: 3.1
+      G_dynamic: 92.0e-12
+      NEP_dark: 1.5e-17
+      NEP_vib_shift: 1.21e-19
+      pton_det_eff: 0.84
+    MF_2:
+      det_eff: 0.6223552871524414
+      psat: 1.05e-11
+      kappa: 12455.0e-12
+      n: 4
+      G_dynamic: 267.0e-12 
+      NEP_dark: 2.7e-17
+      NEP_vib_shift: -3.0000000000000003e-21
+      pton_det_eff: 0.49
+  mv35:
+    R_n: 0.0074
+    T_c: 0.167
+    yield: 0.85
+    psat_tbath : 0.1
+    MF_1:
+      det_eff: 0.6810263142821875
+      psat: 3.3e-12
+      kappa: 775.0e-12
+      n: 2.9
+      G_dynamic: 75.0e-12
+      NEP_dark: 1.5e-17
+      NEP_vib_shift: -3.8000000000000005e-19
+      pton_det_eff: 0.77
+    MF_2:
+      det_eff: 0.7874699551724768
+      psat: 1.0e-11
+      kappa: 3876.0e-12
+      n: 3.2
+      G_dynamic: 242.0e-12 
+      NEP_dark: 2.4e-17
+      NEP_vib_shift: 1.2470000000000002e-18
+      pton_det_eff: 0.62
+  mv12:
+    R_n: 0.0078
+    T_c: 0.183
+    yield: 0.81
+    psat_tbath : 0.1
+    MF_1:
+      det_eff: 0.7517822949868304
+      psat: 4.0e-12
+      kappa: 913.0e-12
+      n: 3.1
+      G_dynamic: 80.0e-12 
+      NEP_dark: 1.5e-17
+      NEP_vib_shift: 5.9e-20
+      pton_det_eff: 0.85
+    MF_2:
+      det_eff: 0.6477575437709083
+      psat: 9.7e-12
+      kappa: 5909.0e-12
+      n: 3.7
+      G_dynamic: 223.0e-12
+      NEP_dark: 2.6e-17
+      NEP_vib_shift: -5.3e-20
+      pton_det_eff: 0.51
+  mv23:
+    R_n: 0.0077
+    T_c: 0.168
+    yield: 0.92
+    psat_tbath : 0.1
+    MF_1:
+      det_eff: 0.7783157877510715
+      psat: 3.9e-12
+      kappa: 910.0e-12
+      n: 2.9
+      G_dynamic: 89.0e-12
+      NEP_dark: 1.7e-17
+      NEP_vib_shift: 2.5000000000000002e-20
+      pton_det_eff: 0.88
+    MF_2:
+      det_eff: 0.6731598003893754
+      psat: 1.04e-11
+      kappa: 14657.0e-12
+      n: 4
+      G_dynamic: 278.0e-12 
+      NEP_dark: 2.3e-17
+      NEP_vib_shift: 4.490000000000001e-19
+      pton_det_eff: 0.53
+  mv33:
+    R_n: 0.0073
+    T_c: 0.174
+    yield: 0.89
+    psat_tbath : 0.1
+    MF_1:
+      det_eff: 0.7694712901629911
+      psat: 4.0e-12
+      kappa: 1318.0e-12
+      n: 3.2
+      G_dynamic: 90.0e-12 
+      NEP_dark: 1.2e-17
+      NEP_vib_shift: 1.3600000000000001e-19
+      pton_det_eff: 0.87
+    MF_2:
+      det_eff: 0.7239643136263092
+      psat: 1.06e-11
+      kappa: 12956.0e-12
+      n: 4
+      G_dynamic: 273.0e-12 
+      NEP_dark: 1.8e-17
+      NEP_vib_shift: 7.07e-19
+      pton_det_eff: 0.57
+  mv17:
+    R_n: 0.0078
+    T_c: 0.188
+    yield: 0.95
+    psat_tbath : 0.1
+    MF_1:
+      det_eff: 0.592581338401384
+      psat: 3.6e-12
+      kappa: 477.0e-12
+      n: 2.8
+      G_dynamic: 66.0e-12
+      NEP_dark: 1.5e-17
+      NEP_vib_shift: -4.0000000000000004e-21
+      pton_det_eff: 0.67
+    MF_2:
+      det_eff: 0.5842519022247409
+      psat: 9.0e-12
+      kappa: 1801.0e-12
+      n: 3.1
+      G_dynamic: 167.0e-12
+      NEP_dark: 2.1e-17
+      NEP_vib_shift: 1.33e-19
+      pton_det_eff: 0.46
