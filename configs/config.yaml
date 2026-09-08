@@ -1,0 +1,96 @@
+# Per-system config for every smcim analysis, pass it to any
+# of the entry points:
+#   smcim-model-plots configs/config.yaml
+#   smcim-net-vs-pwv  configs/config.yaml [--recompute | --use-cached]
+#   smcim-atmosphere  configs/config.yaml
+#
+# Each entry point reads the shared `environment` / `paths` blocks plus its
+# own section (`model_plots`, `net_vs_pwv`, `atmosphere`).
+#
+# Relative paths resolve against the instrument-model checkout: $SMCIM_ROOT
+# if set, else the top-level `root:` key, else
+# ~/software/sat-mf-cmg-instrument-model. Absolute paths are used as-is.
+
+# root: /abs/path/to/sat-mf-cmg-instrument-model   # optional override
+
+# ----------------------------------------------------------------------------
+# Environment variables the jbolo stack reads before it runs.
+#   repo_relative: true  -> joined onto the checkout root
+#   home_relative: true  -> joined onto $HOME
+#   (neither)            -> used as an absolute path
+# ----------------------------------------------------------------------------
+environment:
+  env_vars:
+    JBOLO_PATH:
+      home_relative: true
+      path: software/jbolo
+    JBOLO_MODELS_PATH:
+      repo_relative: true
+      path: model
+
+# ----------------------------------------------------------------------------
+# Shared output locations.
+#   save_key: date stamp (default: today, YYYYMMDD). Prefixes plot filenames
+#             ({save_key}_{tag}.{save_type}); suffixes the net_vs_pwv model
+#             cache (net_vs_pwv_{save_key}.npy).
+# ----------------------------------------------------------------------------
+paths:
+  plot_dir: plots
+  data_dir: paper_data
+  save_type: pdf
+  save_key: "20260901"
+
+# ============================================================================
+# smcim-model-plots
+# ============================================================================
+model_plots:
+  # measured inputs, relative to the checkout root
+  data_files:
+    noise_data: paper_data/noise_data_20260728.npy
+    abscal_data: paper_data/abscal_data_20260827.npy
+
+# ============================================================================
+# smcim-net-vs-pwv
+# ============================================================================
+net_vs_pwv:
+  # obs_aman run tag: {data_dir}/obs_aman_<telescope>_{run_tag}.h5. These
+  # files provide both the measured telescope NET for the model-vs-measured
+  # overlay and the measured per-wafer/band yield vs PWV
+  # (obs_aman.wafer_yield_binned). This on-site measured yield is always used
+  # in place of the in-lab measured `yield` from satp*_params.yaml. 
+  run_tag: "20260901"
+
+  # Optional explicit path to the cached model .npy. When unset, the cache
+  # is {data_dir}/net_vs_pwv_{save_key}.npy. Set this to point --use-cached
+  # at a specific earlier run.
+  # model_cache: paper_data/net_vs_pwv_20260908.npy
+
+  # PWV sweep for the model (elevation held fixed). Only used when the model
+  # is (re)computed.
+  pwv_grid:
+    elevation_deg: 60
+    pwv_min_mm: 0.2
+    pwv_max_mm: 3.0
+    n_pwv: 30
+
+  # Axis ranges for the model-vs-measured overlay. skip_datasets drops a
+  # telescope from both plots (and skips loading its measured file).
+  plot:
+    pwv_max: 2.5
+    xlim: [0, 2.1]
+    ylim: {f090: 10, f150: 12}
+    skip_datasets: []
+
+# ============================================================================
+# smcim-atmosphere
+# ============================================================================
+atmosphere:
+  # PWV x elevation grid swept on the base sim. Writes
+  # {data_dir}/atmosphere_model.npy and {plot_dir}/atmosphere_model.png.
+  grid:
+    pwv_min_mm: 0.01
+    pwv_max_mm: 3.0
+    n_pwv: 21
+    elevation_min_deg: 20
+    elevation_max_deg: 80
+    n_elevation: 61

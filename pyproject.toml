@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sat-mf-cmg-instrument-model"
+version = "0.1.0"
+description = "Instrument model for the MF SATs used in the 2026 Commissioning Paper"
+readme = "README.md"
+requires-python = ">=3.10"
+# jbolo is not on PyPI and needs data files that aren't packaged, so it is
+# installed separately from its v0.1 checkout -- see the README.
+dependencies = [
+    "numpy",
+    "pyyaml",
+    "matplotlib",
+    "astropy",
+    "sotodlib",
+    "socolors",
+]
+
+[project.scripts]
+smcim-model-plots = "smcim.cli.model_plots:main"
+smcim-net-vs-pwv = "smcim.cli.net_vs_pwv:main"
+smcim-atmosphere = "smcim.cli.atmosphere:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
