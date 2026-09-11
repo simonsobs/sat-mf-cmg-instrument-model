@@ -52,9 +52,9 @@ in the configuration of the telescopes on-site.
 ## Install
 
 Python >= 3.10. Everything is on PyPI (`numpy`, `matplotlib`, `astropy`,
-`sotodlib`, `socolors`, ...) except **jbolo**, which comes from its
+`sotodlib`, `socolors`, ...) except **jbolo**, which comes from this fork's
 [v0.1 release](https://github.com/kmharrington/jbolo/releases/tag/v0.1)
--- the version used for the paper.
+-- the version used for the paper. 
 
 jbolo needs two things that are not in its pip package: the aperture
 correction tables (`ApertureFuncs/`, in the repo) and Charlie Hill's
