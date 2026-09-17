@@ -38,7 +38,7 @@ paths:
   plot_dir: plots
   data_dir: paper_data
   save_type: pdf
-  save_key: "20260901"
+  save_key: "20260914"
 
 # ============================================================================
 # smcim-model-plots
@@ -47,7 +47,7 @@ model_plots:
   # measured inputs, relative to the checkout root
   data_files:
     noise_data: paper_data/noise_data_20260728.npy
-    abscal_data: paper_data/abscal_data_20260827.npy
+    abscal_data: paper_data/abscal_data_20260914.npy
 
 # ============================================================================
 # smcim-net-vs-pwv
@@ -58,7 +58,7 @@ net_vs_pwv:
   # overlay and the measured per-wafer/band yield vs PWV
   # (obs_aman.wafer_yield_binned). This on-site measured yield is always used
   # in place of the in-lab measured `yield` from satp*_params.yaml. 
-  run_tag: "20260901"
+  run_tag: "20260914"
 
   # Optional explicit path to the cached model .npy. When unset, the cache
   # is {data_dir}/net_vs_pwv_{save_key}.npy. Set this to point --use-cached
