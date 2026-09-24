@@ -1,7 +1,7 @@
 # sat-mf-cmg-instrument-model
 
 The instrument model for the MF SATs that was used for the 2026
-Commissioning Paper (add arXiv link here when it exists) and the associated Python scripts needed to run the models for all the different configurations used in the paper.
+Commissioning Paper ([arXiv link here)](https://arxiv.org/abs/2609.26938) and the associated Python scripts needed to run the models for all the different configurations used in the paper.
 
 ## Analyses
 
