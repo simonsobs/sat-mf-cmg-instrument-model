@@ -1,6 +1,6 @@
 # sat-mf-cmg-instrument-model
 
-The instrument model for the MF SATs that was used for the 2026
+The instrument model for the Simons Observatory MF SATs that was used for the 2026
 Commissioning Paper ([arXiv link here)](https://arxiv.org/abs/2609.26938) and the associated Python scripts needed to run the models for all the different configurations used in the paper.
 
 ## Analyses
